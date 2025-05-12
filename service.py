@@ -68,7 +68,7 @@ def create_excel_report(all_messages):
     df = pd.concat(all_messages, ignore_index=True)
     if "datetime_at_hour" not in df.columns:
         df["datetime_at_hour"] = "-"
-    df["consumption"] = df.sort_values(by=["device_id", "datetime_at_hour"]).groupby("device_id")["in1"].diff().fillna("-")
-    df = df[["device_id", "in1", "rssi", "consumption", "datetime_at_hour"]]
+    df["consumption"] = df.sort_values(by=["device_id", "datetime_at_hour"]).groupby("device_id")["delta_in1"].diff().fillna("-")
+    df = df[["device_id", "in1", "delta_in1", "rssi", "consumption", "datetime_at_hour"]]
     df.to_excel(REPORT_FILENAME, index=False, sheet_name="Device Messages")
     return REPORT_FILENAME
